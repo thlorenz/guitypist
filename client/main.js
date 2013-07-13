@@ -2,7 +2,9 @@
 
 // getUserMedia can only be invoked when attached to the navigator
 navigator.getUserMedia = require('./lib/get-usermedia');
+
 var connectAudioStream = require('./lib/connect-audiostream');
+var processAudioBuffer = require('./lib/process-audiobuffer');
 
 navigator.getUserMedia({ audio: true }, onsuccess, onerror);
 
@@ -12,5 +14,9 @@ function onerror (err) {
 
 function onsuccess(stream) {
   connectAudioStream(stream);
-  console.log('ready to process');
+  console.log('starting to process');
+
+  processAudioBuffer();
+  //setInterval(processAudioBuffer, 100);
 }
+
