@@ -1,9 +1,16 @@
 'use strict';
 
-var buffer     =  require('./dsp-samplebuffer').buffer
-  , gauss      =  require('./dsp-filters').gauss
-  , copyBuffer =  require('./copy-buffer')
-  , fft        =  require('./dsp-fft')
+var buffer               =  require('./dsp-samplebuffer').buffer
+  , gauss                =  require('./dsp-filters').gauss
+  , copyBuffer           =  require('./copy-buffer')
+  , fft                  =  require('./dsp-fft')
+  , adjustNoiseThreshold =  require('./adjust-noise-threshold')
+  , sortSpectrumPoints   =  require('./sort-spectrum-points')
+  ;
+
+var maxTime        =  0
+  , maxPeaks       =  0
+  , maxPeakCount   =  0
   ;
 
 function downsample (buf) {
@@ -26,6 +33,8 @@ function upsample (buf) {
 }
 
 var go = module.exports = function () {
+
+
   var buf = copyBuffer(buffer);
   gauss.process(buf);
 
@@ -33,5 +42,9 @@ var go = module.exports = function () {
   var upsampled = upsample(downsampled);
 
   fft.forward(upsampled);
-  console.log('processed');
+
+  var noiseThreshold = adjustNoiseThreshold(fft.spectrum);
+  var spectrumPoints = sortSpectrumPoints(fft.spectrum);
+
+  console.log('processed', noiseThreshold);
 };

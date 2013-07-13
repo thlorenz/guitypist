@@ -16,6 +16,9 @@ var go = module.exports = function adjustNoiseThreshold (spectrum) {
 
   if (noiseCount < 10) {
     noiseThreshold = Object.keys(spectrum)
+      .filter(function (k) {
+        return !~['buffer', 'byteLength', 'byteOffset', 'length'].indexOf(k);
+      })
       .reduce(function (max, k) {
         var sp = spectrum[k];
         return sp > max ? sp : max;
