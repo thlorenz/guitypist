@@ -18,7 +18,6 @@ var audioContext = require('./audiocontext')
 var go = module.exports = function (stream) {
   console.log('connecting audio stream');
 
-
   var src = audioContext.createMediaStreamSource(stream);
 
   src.connect(lp);

@@ -6,13 +6,6 @@ var buffer     =  require('./dsp-samplebuffer').buffer
   , fft        =  require('./dsp-fft')
   ;
 
-var maxTime        =  0
-  , noiseCount     =  0
-  , maxPeaks       =  0
-  , maxPeakCount   =  0
-  , noiseThreshold =  -Infinity
-  ;
-
 function downsample (buf) {
   var downsampled = [];
   for (var i = 0; i < buf.length; downsampled.push(buf[i]), i += 4);
