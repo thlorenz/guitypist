@@ -8,7 +8,7 @@ var connectAudioStream =  require('./lib/connect-audiostream')
   , noteToLetter       =  require('./lib/note-to-letter')
   , pitchResult = document.getElementsByClassName('pitch')[0]
   , output = document.getElementsByClassName('output')[0]
-  , interval = 100
+  , interval = 20
   ;
 
 navigator.getUserMedia({ audio: true }, onsuccess, onerror);

@@ -9,6 +9,7 @@ var buffer               =  require('./dsp-samplebuffer').buffer
   , getSortedPeaks       =  require('./get-sorted-peaks')
   , audioContext         =  require('./audiocontext')
   , getPitch             =  require('./get-pitch')
+  , pitcher              =  require('./pitcher')
   ;
 
 function downsample (buf) {
@@ -31,6 +32,7 @@ function upsample (buf) {
 }
 
 var go = module.exports = function (interval, onpitch, onnopitch) {
+  var gotPitch = pitcher(interval, onpitch, onnopitch);
 
   var maxTime       =  0
     , maxPeaks      =  0
@@ -38,7 +40,6 @@ var go = module.exports = function (interval, onpitch, onnopitch) {
     , sampleRate    =  audioContext.sampleRate
     , fftSize       =  fft.size
     , rateSizeRatio =  sampleRate / fftSize
-    , nopitch       =  0
     ;
 
   return function doprocess () {
@@ -94,7 +95,7 @@ var go = module.exports = function (interval, onpitch, onnopitch) {
         var freq = interp * (sampleRate / fftSize);
 
         var pitch = getPitch(freq);
-        onpitch(pitch);
+        gotPitch(pitch);
       }
 
     } else {
@@ -103,11 +104,7 @@ var go = module.exports = function (interval, onpitch, onnopitch) {
       // Looks like the maxPeaks business is only needed for visualization?
       //if (maxPeakCount > 20) display.clear()
 
-      nopitch++;
-      if (nopitch > (100 / interval)) {
-        nopitch = 0;
-        onnopitch();
-      }
+      gotPitch({ note: null, frequency: 0, diff: 0 });
     }
   };
 };
