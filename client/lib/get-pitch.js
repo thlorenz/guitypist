@@ -10,7 +10,7 @@ var go = module.exports = function (freq) {
         , absDiff =  Math.abs(diff);
 
       return absDiff < bestMatch.minDiff
-        ? { diff: diff, minDiff: absDiff, note: k }
+        ? { diff: diff, minDiff: absDiff, note: k, frequency: freq }
         : bestMatch;
 
     }, { note: null, diff: Infinity, minDiff: Infinity });

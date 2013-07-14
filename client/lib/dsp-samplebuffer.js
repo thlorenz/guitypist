@@ -27,12 +27,12 @@ bufferFiller.onaudioprocess = function (e) {
   var input = e.inputBuffer.getChannelData(0)
     , i;
 
-  for (i = bufferFillSize; i <= buffer.length; i++)
+  for (i = bufferFillSize; i < buffer.length; i++)
     buffer[i - bufferFillSize] = buffer[i];
 
   var offset = buffer.length - bufferFillSize;
 
-  for (i = 0; i <= input.length; i++)
+  for (i = 0; i < input.length; i++)
     buffer[offset + i] = input[i];
 };
 
