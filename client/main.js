@@ -8,6 +8,7 @@ var connectAudioStream =  require('./lib/connect-audiostream')
   , noteToLetter       =  require('./lib/note-to-letter')
   , pitchResult = document.getElementsByClassName('pitch')[0]
   , output = document.getElementsByClassName('output')[0]
+  , interval = 100
   ;
 
 navigator.getUserMedia({ audio: true }, onsuccess, onerror);
@@ -17,9 +18,9 @@ function onerror (err) {
 }
 
 function onsuccess(stream) {
-  var processNext = processAudioBuffer(onpitch);
+  var processNext = processAudioBuffer(interval, onpitch, onnopitch);
   connectAudioStream(stream);
-  setInterval(processNext, 100);
+  setInterval(processNext, interval);
 }
 
 function onpitch(pitch) {
@@ -28,7 +29,11 @@ function onpitch(pitch) {
     + '\tFrequency: ' + pitch.frequency
     + '\tDiff: '      + pitch.diff;
 
-  var letter = noteToLetter[pitch.note] || '';
-  output.textContent = output.textContent + letter;
+  output.textContent += pitch.note;
+  /*var letter = noteToLetter[pitch.note] || '?';
+  output.textContent = output.textContent + letter;*/
 }
 
+function onnopitch () {
+  output.textContent = output.textContent + '.';
+}

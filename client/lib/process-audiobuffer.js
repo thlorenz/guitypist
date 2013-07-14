@@ -30,7 +30,7 @@ function upsample (buf) {
   return upsampled;
 }
 
-var go = module.exports = function (onpitch) {
+var go = module.exports = function (interval, onpitch, onnopitch) {
 
   var maxTime       =  0
     , maxPeaks      =  0
@@ -38,6 +38,7 @@ var go = module.exports = function (onpitch) {
     , sampleRate    =  audioContext.sampleRate
     , fftSize       =  fft.size
     , rateSizeRatio =  sampleRate / fftSize
+    , nopitch       =  0
     ;
 
   return function doprocess () {
@@ -49,7 +50,7 @@ var go = module.exports = function (onpitch) {
 
     fft.forward(upsampled);
 
-    var noiseThreshold =  adjustNoiseThreshold(fft.spectrum)
+    var noiseThreshold =  adjustNoiseThreshold(fft.spectrum, interval)
       , spectrumPoints =  sortSpectrumPoints(fft.spectrum)
       , peaks          =  getSortedPeaks(spectrumPoints, noiseThreshold)
       ;
@@ -101,6 +102,12 @@ var go = module.exports = function (onpitch) {
       maxPeakCount++;
       // Looks like the maxPeaks business is only needed for visualization?
       //if (maxPeakCount > 20) display.clear()
+
+      nopitch++;
+      if (nopitch > (100 / interval)) {
+        nopitch = 0;
+        onnopitch();
+      }
     }
   };
 };

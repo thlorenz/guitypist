@@ -12,9 +12,9 @@ var noiseCount     =  0
  * @function
  * @return {Number} the noise threshold
  */
-var go = module.exports = function adjustNoiseThreshold (spectrum) {
+var go = module.exports = function adjustNoiseThreshold (spectrum, interval) {
 
-  if (noiseCount < 10) {
+  if (noiseCount < 1000 / interval) {
     noiseThreshold = Object.keys(spectrum)
       .filter(function (k) {
         return !~['buffer', 'byteLength', 'byteOffset', 'length'].indexOf(k);
