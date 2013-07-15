@@ -6,6 +6,10 @@ It is by far anywhere near I'd want it, but it's a start ;)
 
 You can play with it [here](http://thlorenz.github.io/guitypist/).
 
+## Requirements
+
+I only tested this with Chrome Canary, so I'd suggest for you to use the same.
+
 ## Future features
 
 - definitely improve pitch recognition and speed it up
