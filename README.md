@@ -1,23 +1,18 @@
-# guitypist
-[![build status](https://secure.travis-ci.org/thlorenz/guitypist.png)](http://travis-ci.org/thlorenz/guitypist)
-
-[![testling badge](https://ci.testling.com/thlorenz/guitypist.png)](https://ci.testling.com/thlorenz/guitypist)
+# guitypist [![build status](https://secure.travis-ci.org/thlorenz/guitypist.png)](http://travis-ci.org/thlorenz/guitypist)
 
 Experiment to use guitar playing skills to write code -- stay tuned (npi) :)
 
-```js
-// TODO
-```
+It is by far anywhere near I'd want it, but it's a start ;) 
 
-## Status
+You can play with it [here](http://thlorenz.github.io/guitypist/).
 
-Nix, Nada, Nichevo, Nothing --> go away!
-## Installation
+## Future features
 
-    npm install guitypist
-
-## API
-
+- definitely improve pitch recognition and speed it up
+- distinguish long/short notes
+- use licks for snippets
+- use licks for multi key short cuts i.e. `Ctrl-j`
+- enable `Shift` key
 
 ## License
 
