@@ -2,8 +2,12 @@ body {
   background: antiquewhite;
 }
 
-.output {
+.output, .debug {
   width: 400px;
   height: 500px;
   margin-left: 100px;
+}
+.output {
+  font-size: 18px;
+  font-family: Courier
 }

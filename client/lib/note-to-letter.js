@@ -1,21 +1,14 @@
 'use strict';
 
-module.exports = {
-  'C#4': 'b',
-  'D4' : 'v',
-  'D#4': 'c',
-  'E4' : 'x',
-  'F4' : 'z',
+var v    =  require('./note-to-letter-v')
+  , vdgb =  require('./note-to-letter-v-dgb')
+  , vii  =  require('./note-to-letter-vii');
 
-  'G#3': 'g',
-  'A3' : 'f',
-  'A#3': 'd',
-  'B3' : 's',
-  'C4' : 'a',
 
-  'D#3': 't',
-  'E3' : 'r',
-  'F3' : 'e',
-  'F#3': 'w',
-  'G3' : 'q',
+module.exports = function (fret) {
+  switch(fret) {
+    case 'v'     :  return v;
+    case 'v-dgb' :  return vdgb;
+    case 'vii'   :  return vii;
+  }
 };

@@ -5,10 +5,13 @@ navigator.getUserMedia = require('./lib/get-usermedia');
 
 var connectAudioStream =  require('./lib/connect-audiostream')
   , processAudioBuffer =  require('./lib/process-audiobuffer')
-  , noteToLetter       =  require('./lib/note-to-letter')
-  , pitchResult = document.getElementsByClassName('pitch')[0]
-  , output = document.getElementsByClassName('output')[0]
-  , interval = 20
+  , noteToLetter       =  require('./lib/note-to-letter')('v-dgb')
+  ;
+
+var pitchResult =  document.getElementsByClassName('pitch')[0]
+  , output      =  document.getElementsByClassName('output')[0]
+  , debug       =  document.getElementsByClassName('debug')[0]
+  , interval    =  20
   ;
 
 navigator.getUserMedia({ audio: true }, onsuccess, onerror);
@@ -29,11 +32,11 @@ function onpitch(pitch) {
     + '\tFrequency: ' + pitch.frequency
     + '\tDiff: '      + pitch.diff;
 
-  output.textContent += pitch.note;
-  /*var letter = noteToLetter[pitch.note] || '?';
-  output.textContent = output.textContent + letter;*/
+  debug.textContent += pitch.note;
+  var letter = noteToLetter[pitch.note] || ' ';
+  output.textContent += letter;
 }
 
 function onnopitch () {
-  output.textContent = output.textContent + '.';
+  debug.textContent += '.';
 }
